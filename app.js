@@ -80,6 +80,38 @@ app.get('/pdf', function (req, res) {
     });
 });
 
+var Mongoose = require('mongoose');
+Mongoose.connect('mongodb+srv://teste:123mudar@clustermongo-gnycy.mongodb.net/test?retryWrites=true&w=majority');
+
+var db = Mongoose.connection;
+
+db.on('error', console.error);
+db.once('open', function() {
+  console.log('Conectado ao MongoDB.')
+
+
+  var movieSchema = new Mongoose.Schema({
+    nome: String
+  });
+  
+  var tabela = Mongoose.model('tabela', movieSchema);
+
+//   tabela.findOne({ nome: 'TESTE' }, function(err, thor) {
+//     if (err) return console.error(err);
+//     console.dir(thor);
+//   });
+
+  // Buscando todos os filmes
+  tabela.find(function(err, movies) {
+    if (err) return console.error(err);
+    console.dir(movies);
+  });
+
+
+
+  // Vamos adicionar nossos Esquemas, Modelos e consultas aqui
+});
+
 
 
 // pdf.create(html).toStream(function (err, stream) {
