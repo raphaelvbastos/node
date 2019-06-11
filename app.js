@@ -7,4 +7,5 @@ app.get('/', function(req, res) {
     res.sendfile('./public/index.html');
 });
 
-app.listen(80);
+var porta = process.env.PORT || 8080;
+app.listen(porta);
