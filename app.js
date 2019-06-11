@@ -60,10 +60,28 @@ var mime = require('mime');
 //   filestream.pipe(res);
 // });
 
-app.get('/download/:uid', function(req, res){
+app.get('/download/:uid', function (req, res) {
     const file = './arquivos/' + req.params.uid;
     res.download(file); // Set disposition and send it.
-  });
+});
 
 var porta = process.env.PORT || 8080;
 app.listen(porta);
+
+
+app.get('/pdf', function (req, res) {
+    var fs = require('fs');
+    var pdf = require('html-pdf');
+    var html = fs.readFileSync('./public/index.html', 'utf8');
+    var options = { format: 'Letter' };
+    pdf.create(html).toStream(function (err, stream) {
+        stream.pipe(fs.createWriteStream('./test1.pdf'))
+        res.download('./test1.pdf');
+    });
+});
+
+
+
+// pdf.create(html).toStream(function (err, stream) {
+//     stream.pipe(fs.createWriteStream('./teste.pdf'));
+// });
