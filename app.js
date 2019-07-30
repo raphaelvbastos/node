@@ -81,9 +81,9 @@ app.post('/upload', multipartMiddleware, (req, res) => {
     //     });
     // });
 
-    console.log(req.files);
-    console.log(req.files.uploads[0].path);
-    console.log(req.files.uploads[0].name);
+    // console.log(req.files);
+    // console.log(req.files.uploads[0].path);
+    // console.log(req.files.uploads[0].name);
 
     var tmp_path = req.files.uploads[0].path;
     var target_path = 'arquivos/' + req.files.uploads[0].name;
