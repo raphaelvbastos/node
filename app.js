@@ -241,6 +241,89 @@ db.once('open', function () {
         });
     });
 
+    var CursoSchema = new Schema(
+        {
+            titulo: String,
+            instrutor: String,
+            palavrasChave: [String],
+            unidades: [UnidadeSchema],
+            usuarios: [UsuarioSchema],
+            avaliacoes: [AvaliacaoSchema], 
+            admin: { type: Boolean, default: false }
+        }
+    );
+
+    var UsuarioSchema = new Schema(
+        {
+            nome: String,
+            email: String,
+            senha: String,
+            tipo: String
+        }
+    );
+
+    var UnidadeSchema = new Schema(
+        {
+            titulo: String,
+            videos: [VideoSchema],
+            arquivos: [ArquivoSchema],
+            questionario: [QuestionarioSchema],
+
+        }
+    );
+
+    var VideoSchema = new Schema(
+        {
+            titulo: String,
+            link: String,
+            vistoPor: [UsuarioSchema],
+        }
+    );
+
+    var ArquivoSchema = new Schema(
+        {
+            titulo: String,
+            link: String,
+        }
+    );
+
+    var QuestionarioSchema = new Schema(
+        {
+            titulo: String,
+            questoes: [QuestaoSchema],
+        }
+    );
+
+    var QuestaoSchema = new Schema(
+        {
+            pergunta: String,
+            alternativas: [AlternativaSchema],
+            respostas: [UsuarioRespostaSchema]
+        }
+    );
+
+    var AlternativaSchema = new Schema(
+        {
+            alternativa: String,
+            correta: { type: Boolean, default: false }
+        }
+    );
+
+    var UsuarioRespostaSchema = new Schema(
+        {
+            usuario: [UsuarioSchema],
+            resposta: AlternativaSchema
+        }
+    );
+
+    var AvaliacaoSchema = new Schema(
+        {
+            usuario: [UsuarioSchema],
+            nota: Number,
+            comentario: String
+        }
+    );
+
 
 
     // autor.save(function(erro, autor){
